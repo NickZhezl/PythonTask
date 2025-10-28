@@ -1,6 +1,7 @@
 import json
 
 import pymysql
+
 from config import host, user, password, db_name
 
 with open('rooms.json', 'r', encoding='utf-8') as rooms_file:
@@ -25,9 +26,8 @@ try:
             for room in rooms:
                 pass
             try:
-                create_table_query = ("CREATE TABLE rooms (id INT NOT NULL," \
+                create_table_query = ("CREATE TABLE rooms (id INT NOT NULL PRIMARY KEY," \
                                       "name VARCHAR(50));")
-
                 cursor.execute(create_table_query)
 
                 print('Table for rooms created successfully')
@@ -35,11 +35,13 @@ try:
             except Exception as e:
                 print(e)
             try:
-                create_students_table_query = ("CREATE TABLE students (birthday DATE NOT NULL,"
-                                               "id INT NOT NULL,"
-                                               "name VARCHAR(50),"
-                                               "room INT,"
-                                               "sex VARCHAR(20));")
+                create_students_table_query = ("CREATE TABLE students (birthday DATE NOT NULL,"\
+                                               "id INT NOT NULL PRIMARY KEY,"\
+                                               "name VARCHAR(50),"\
+                                               "room INT,"\
+                                               "sex VARCHAR(20),"\
+                                               "CONSTRAINT student_room_fk FOREIGN KEY (room) REFERENCES rooms (id));")
+
                 cursor.execute(create_students_table_query)
                 print('Table for students created successfully')
             except Exception as e:
@@ -66,7 +68,6 @@ try:
                     print('Students inserted successfully')
             except Exception as e:
                 print(e)
-
     finally:
         mydb.close()
         print('Connection closed')
