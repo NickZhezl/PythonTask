@@ -45,6 +45,28 @@ try:
             except Exception as e:
                 print(e)
 
+            try:
+                for room in rooms:
+                    val_room = (room['id'], room['name'])
+                    sql_room = "insert into rooms (id, name) VALUES (%s,%s)"
+                    cursor.execute(sql_room, val_room)
+                    mydb.commit()
+                else:
+                    print('Room inserted successfully')
+            except Exception as e:
+                print(e)
+
+            try:
+                for student in students:
+                    val_student = (student['birthday'], student['id'], student['name'], student['room'], student['sex'])
+                    sql_student = "insert into students (birthday, id, name, room, sex) VALUES (%s,%s,%s,%s,%s)"
+                    cursor.execute(sql_student, val_student)
+                    mydb.commit()
+                else:
+                    print('Students inserted successfully')
+            except Exception as e:
+                print(e)
+
     finally:
         mydb.close()
         print('Connection closed')
