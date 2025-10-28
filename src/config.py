@@ -1,4 +1,4 @@
 host = '127.0.0.1'
-user = 'uname'
-password = 'yourpass'
+user = 'root'
+password = 'admin'
 db_name = 'test'
